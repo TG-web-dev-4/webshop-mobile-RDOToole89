@@ -70,9 +70,8 @@ export const ProductDetailScreen = ({ route }: any) => {
           position: 'relative',
           width: '100%',
         }}>
-        {extraImages.length > 100 ? (
-          // <ImageCarousel height={100} width={100} images={extraImages} />
-          <Text>TEXT</Text>
+        {extraImages.length > 1 ? (
+          <ImageCarousel height={100} width={100} images={extraImages} />
         ) : (
           <ResponsiveImage
             source={{
