@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "categoryName": "Games",
+    "description": "Only the best games at lamestop."
+  },
+  {
+    "id": 2,
+    "categoryName": "PlayStation",
+    "description": "PS5 just released! Get ready for a new generation."
+  },
+  {
+    "id": 3,
+    "categoryName": "Xbox",
+    "description": "Xbox Series X is out now! Get ready for an even more immersive experience."
+  },
+  {
+    "id": 4,
+    "categoryName": "Nintendo",
+    "description": "Nintendo the most accesible gaming devices on the market. "
+  },
+  {
+    "id": 5,
+    "categoryName": "Simulators",
+    "description": "Fall as sleep with these lameass simulators."
+  },
+  {
+    "id": 6,
+    "categoryName": "LameStop 10",
+    "description": "It doesn't get any lamer."
+  },
+  {
+    "id": 7,
+    "categoryName": "PC Games",
+    "description": "Are you part of the PC master race?!"
+  },
+  {
+    "id": 8,
+    "categoryName": "Consoles",
+    "description": "We have the worst among every generation."
+  },
+  {
+    "id": 9,
+    "categoryName": "Gaming Gear",
+    "description": "Gear up with the latest in gaming gadgets and accessories."
+  }
+]

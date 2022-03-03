@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "webshop",
-    "slug": "webshop",
+    "name": "06-webshop-rn-ts",
+    "slug": "06-webshop-rn-ts",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -13,9 +13,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
