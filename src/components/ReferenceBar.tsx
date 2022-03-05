@@ -11,7 +11,7 @@ import { MaterialIcon } from '../global/elements/MaterialIcon';
 import { CustomText } from '../global/elements/customText';
 import { NavigationScreen } from '../types/app.types';
 
-type ReferenceBar = {
+type TReferenceBar = {
   iconName: string;
   routeString?: NavigationScreen<RootStackParams>;
   barText: string;
@@ -27,7 +27,7 @@ export const ReferenceBar = ({
   onClick,
   modalBar = false,
   color = TYPOGRAPHY.COLOR.Secondary,
-}: ReferenceBar) => {
+}: TReferenceBar) => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParams>>();
 
@@ -65,7 +65,7 @@ export const ReferenceBar = ({
 
 const styles = StyleSheet.create({
   refBarContainer: {
-    paddingVertical: GLOBAL.SPACING.md,
+    paddingVertical: GLOBAL.SPACING.sm,
     marginVertical: GLOBAL.SPACING.md,
     flexDirection: 'row',
     justifyContent: 'flex-start',

@@ -10,11 +10,12 @@ import { GLOBAL } from '../global/styles/global';
 import { TYPOGRAPHY } from '../global/styles/typography';
 import { HorizontalScrollViewCard } from './HorizontalScrollViewCard';
 import uuid from 'react-native-uuid';
+import { IProduct } from '../types/data.types';
 
-interface HorizontalScrollView {
-  dataArray: any[];
+interface IHorizontalScrollView {
+  dataArray: Object[];
   title?: string;
-  routeString: any;
+  routeString: string;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -23,15 +24,16 @@ export const HorizontalScrollView = ({
   title,
   routeString,
   style,
-}: HorizontalScrollView) => {
+}: IHorizontalScrollView) => {
   return (
     <View style={[styles.scrollContainer, style]}>
       {title && (
-        <Text style={[TYPOGRAPHY.FONT.h3, { fontFamily: 'open-sans-bold' }]}>
+        <Text style={[TYPOGRAPHY.FONT.h2, { fontFamily: 'open-sans-bold' }]}>
           {title}
         </Text>
       )}
       <ScrollView horizontal>
+        {/* How do I type this? */}
         {dataArray.map((item: any) => {
           // console.log(`ITEM: INSIDE DATA ARRAY`, item);
 
@@ -51,8 +53,6 @@ export const HorizontalScrollView = ({
 const styles = StyleSheet.create({
   scrollContainer: {
     padding: GLOBAL.SPACING.md,
-    // maxHeight: 220,
-    flex: 1,
     backgroundColor: TYPOGRAPHY.COLOR.Neutral,
   },
 });

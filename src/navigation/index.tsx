@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { Ionicons } from '@expo/vector-icons';
 import logo from '../../assets/lamestop-logo-transparent.png';
 
-import { Image, Pressable } from 'react-native';
+import { Image, Keyboard, Pressable } from 'react-native';
 import { HomeScreen } from '../screens/HomeScreen';
 import { CategoriesScreen } from '../screens/CategoriesScreen';
 import { SearchScreen } from '../screens/SearchScreen';
@@ -22,7 +22,8 @@ import { IMGSTYLES } from '../global/styles/imgStyles';
 import { selectCartItemsQuantity } from '../state/selectors/CartSelector';
 import { ProductsScreen } from '../screens/ProductsScreen';
 import { ProductDetailScreen } from '../screens/ProductDetailScreen';
-import { ReviewSrcreen } from '../screens/ReviewScreen';
+import { ReviewScreen } from '../screens/ReviewScreen';
+
 import { AccountScreen } from '../screens/AccountScreen';
 import { AddProductsScreen } from '../screens/AddProductScreen';
 
@@ -63,11 +64,11 @@ export const RootNavigator = () => {
       <Stack.Screen name='Root' component={BottomTabNavigator} />
       <Stack.Screen name='LoginStack' component={LoginStack} />
       <Stack.Screen
-        options={({ navigation }) => ({
+        options={({}) => ({
           headerShown: true,
         })}
         name='Review'
-        component={ReviewSrcreen}
+        component={ReviewScreen}
       />
     </Stack.Navigator>
   );
@@ -245,7 +246,6 @@ export const BottomTabNavigator = () => {
         options={({ navigation, route }) => {
           return {
             headerShown: true,
-
             tabBarButton: () => null,
             title: route.params?.categoryName,
             headerLeft: () => (
@@ -264,6 +264,8 @@ export const BottomTabNavigator = () => {
         name='ProductDetails'
         component={ProductDetailScreen}
         options={({ navigation, route }) => {
+          // console.log('ROUTE', route);
+
           return {
             headerShown: true,
             headerStyle: {
@@ -273,7 +275,7 @@ export const BottomTabNavigator = () => {
             //@ts-ignore
             title: route.params?.title,
             headerLeft: () => (
-              <Pressable onPress={() => navigation.goBack()}>
+              <Pressable onPress={() => navigation.navigate('Products')}>
                 <Ionicons
                   name='chevron-back'
                   size={32}
@@ -317,7 +319,7 @@ export const BottomTabNavigator = () => {
               backgroundColor: '#fafafa',
             },
             tabBarButton: () => null,
-            title: 'Add Products You Awesome Admin!',
+            title: 'Awesome Admin Screen',
             headerLeft: () => (
               <Pressable onPress={() => navigation.goBack()}>
                 <Ionicons

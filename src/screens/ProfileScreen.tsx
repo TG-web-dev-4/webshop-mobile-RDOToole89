@@ -1,7 +1,7 @@
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParams } from '../navigation/navigation';
-import { ScrollView, Text, StyleSheet, View } from 'react-native';
+import { Text, StyleSheet, View } from 'react-native';
 import { DefaultButton } from '../global/elements/buttons';
 import { GLOBAL } from '../global/styles/global';
 import { TYPOGRAPHY } from '../global/styles/typography';
@@ -10,6 +10,7 @@ import { MaterialIcon } from '../global/elements/MaterialIcon';
 import { Modal } from '../global/elements/Modal';
 import { useSelector } from 'react-redux';
 import { useActions } from '../hooks/useActions';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { RootState } from '../state';
 
 export const ProfileScreen = () => {
@@ -17,24 +18,26 @@ export const ProfileScreen = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParams>>();
   const currentUser = useSelector((state: RootState) => state.user);
-  const {
-    isLoggedIn,
-    user: { displayName },
-  } = currentUser;
+  let { isLoggedIn } = currentUser;
 
-  console.log(displayName);
+  let displayName;
+  let email;
+  let admin;
 
-  const admin =
-    currentUser.user.email === 'roibinotoole@gmail.com' ? true : false;
+  if (currentUser.user) {
+    displayName = currentUser.user.displayName;
+    email = currentUser.user.email;
+    admin = currentUser.user.email === 'roibinotoole@gmail.com' ? true : false;
+  }
 
   return (
-    <ScrollView style={styles.container}>
+    <KeyboardAwareScrollView style={styles.container}>
       {isLoggedIn ? (
         <>
           <Text style={TYPOGRAPHY.FONT.h1}>
-            {displayName ? displayName : 'Roibin OToole'}
+            {displayName ? displayName : 'Test User'}
           </Text>
-          <Text style={TYPOGRAPHY.FONT.subtitle}>{currentUser.user.email}</Text>
+          <Text style={TYPOGRAPHY.FONT.subtitle}>{email}</Text>
         </>
       ) : (
         <Text style={TYPOGRAPHY.FONT.h1}>Hi There!</Text>
@@ -190,7 +193,7 @@ export const ProfileScreen = () => {
           }
         />
       )}
-    </ScrollView>
+    </KeyboardAwareScrollView>
   );
 };
 

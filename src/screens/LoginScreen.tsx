@@ -1,7 +1,7 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Platform } from 'react-native';
 import { GLOBAL } from '../global/styles/global';
 import { TextInput, Checkbox, Button } from 'react-native-paper';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { HorizontalRule } from '../global/elements/HorizontalRule';
 import { TYPOGRAPHY } from '../global/styles/typography';
 import { TopBar } from '../components/TopBar';
@@ -29,6 +29,8 @@ export const LoginScreen = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
+  let timeoutClear: NodeJS.Timeout;
+
   const signInWithCredentials = (email: string, password: string) => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -39,13 +41,17 @@ export const LoginScreen = () => {
         setSuccess('User signed in succesfully');
         setEmail('');
         setPassword('');
-        setTimeout(() => {
+        timeoutClear = setTimeout(() => {
           navigation.navigate('Home');
-        }, 2000);
+        }, 1000);
+
+        console.log(timeoutClear);
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+
+        setError(`${errorMessage} errorCode: ${errorCode}`);
       });
   };
 
@@ -64,9 +70,9 @@ export const LoginScreen = () => {
           setSuccess('User signed up succesfully');
           setEmail('');
           setPassword('');
-          setTimeout(() => {
+          timeoutClear = setTimeout(() => {
             navigation.navigate('Home');
-          }, 2000);
+          }, 1000);
         }
       })
       .catch((error) => {
@@ -79,9 +85,17 @@ export const LoginScreen = () => {
         // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
 
-        setError(errorMessage);
+        setError(
+          `${errorMessage} errorCode: ${errorCode} email: ${email} authType ${credential}`
+        );
       });
   };
+
+  useEffect(() => {
+    return () => {
+      clearTimeout(timeoutClear);
+    };
+  }, [success]);
 
   return (
     <>
@@ -93,14 +107,14 @@ export const LoginScreen = () => {
       {error ? (
         <MessageBanner
           message={error ? `${error}` : `Signed up successfully`}
-          delay={2000}
+          delay={999}
           backgroundColor={TYPOGRAPHY.COLOR.BrandRed}
         />
       ) : null}
       {success ? (
         <MessageBanner
           message={success ? `${success}` : `Signed up successfully`}
-          delay={2000}
+          delay={999}
           backgroundColor={TYPOGRAPHY.COLOR.Success}
         />
       ) : null}
@@ -117,7 +131,7 @@ export const LoginScreen = () => {
           </Text>
         </View>
         <View>
-          <Text style={[TYPOGRAPHY.FONT.subtitle]}>
+          <Text style={TYPOGRAPHY.FONT.subtitle}>
             Sign in to your LameStop account
           </Text>
         </View>
@@ -129,7 +143,7 @@ export const LoginScreen = () => {
           label='email'
           value={email}
           onChangeText={(text) => setEmail(text)}
-          autoComplete=''
+          autoComplete='true'
           style={styles.textInput}
         />
         <TextInput
@@ -140,7 +154,7 @@ export const LoginScreen = () => {
           label='password'
           value={password}
           onChangeText={(text) => setPassword(text)}
-          autoComplete=''
+          autoComplete='true'
           style={styles.textInput}
         />
         <PressableText
@@ -174,23 +188,28 @@ export const LoginScreen = () => {
           text='or'
           style={{ marginVertical: GLOBAL.SPACING.md }}
         />
-        <Button
-          style={{ borderRadius: 0 }}
-          color='#e7230d'
-          mode='outlined'
-          onPress={signinWithGooglePopup}>
-          <Text
-            style={[
-              GLOBAL.TEXT.Bold,
-              { color: TYPOGRAPHY.COLOR.DefaultSelected },
-            ]}>
-            SIGN IN WITH GOOGLE
-          </Text>
-        </Button>
-        <HorizontalRule
-          text='or'
-          style={{ marginVertical: GLOBAL.SPACING.md }}
-        />
+        {Platform.OS === 'web' && (
+          <>
+            <Button
+              style={{ borderRadius: 0 }}
+              color='#e7230d'
+              mode='outlined'
+              onPress={signinWithGooglePopup}>
+              <Text
+                style={[
+                  GLOBAL.TEXT.Bold,
+                  { color: TYPOGRAPHY.COLOR.DefaultSelected },
+                ]}>
+                SIGN IN WITH GOOGLE
+              </Text>
+            </Button>
+            <HorizontalRule
+              text='or'
+              style={{ marginVertical: GLOBAL.SPACING.md }}
+            />
+          </>
+        )}
+
         <Button
           style={{ borderRadius: 0, borderWidth: 1, borderColor: '#000' }}
           color='#fff'

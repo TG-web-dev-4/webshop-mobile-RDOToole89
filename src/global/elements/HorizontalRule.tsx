@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, StyleProp, ViewStyle } from 'react-native';
 import { GLOBAL } from '../styles/global';
 import { TYPOGRAPHY } from '../styles/typography';
 
-interface HorizontalRule {
+interface IHorizontalRule {
   color?: string;
   text?: string;
   style?: StyleProp<ViewStyle>;
@@ -15,8 +15,8 @@ export const HorizontalRule = ({
   text,
   style,
   ruleWidth,
-  shadow = false,
-}: HorizontalRule) => {
+  shadow,
+}: IHorizontalRule) => {
   const ruleStyle = {
     flex: 1,
     height: ruleWidth ? ruleWidth : 1,
@@ -24,9 +24,9 @@ export const HorizontalRule = ({
   };
 
   const shadowStyles = {
-    ...GLOBAL.SHADOWS.shadowLight,
     ...ruleStyle,
     backgroundColor: 'transparent',
+    ...GLOBAL.SHADOWS.shadowLight,
   };
 
   return (
